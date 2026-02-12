@@ -303,9 +303,10 @@ public class ArabicTextExtensionAdvancedTests
     {
         // Use actual loaded Quran text to avoid C# source encoding differences
         var text = Quran.GetAyah(1, 1, AlQuran.Enums.ScriptType.Simple).Text;
-        var result = text.HighlightMatch("\u0628\u0633\u0645", s => $"[{s}]"); // بسم
-        Assert.Contains("[", result);
-        Assert.Contains("]", result);
+        // Use non-bracket wrapper to avoid confusion with xUnit output formatting
+        var result = text.HighlightMatch("\u0628\u0633\u0645", s => $"**{s}**"); // بسم
+        Assert.Contains("**", result);
+        Assert.NotEqual(text, result);
     }
 
     [Fact]
