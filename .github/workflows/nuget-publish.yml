@@ -10,8 +10,8 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      PROJECT_PATH: "src/AlQuran/AlQuran.csproj"
-      TEST_PROJECT_PATH: "tests/AlQuran.Tests/AlQuran.Tests.csproj"
+      PROJECT_PATH: "src/AlQuran.SDK/AlQuran.SDK.csproj"
+      TEST_PROJECT_PATH: "tests/AlQuran.SDK.Tests/AlQuran.SDK.Tests.csproj"
       PACKAGE_SOURCE: "https://api.nuget.org/v3/index.json"
 
     steps:

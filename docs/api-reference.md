@@ -1,4 +1,4 @@
-# AlQuran - API Reference
+# AlQuran.SDK - API Reference
 
 ## Table of Contents
 
@@ -12,7 +12,7 @@
 
 ## Main Entry Point
 
-### `AlQuran.Quran` (Static Class)
+### `AlQuran.SDK.Quran` (Static Class)
 
 The primary API for accessing all Quran data.
 

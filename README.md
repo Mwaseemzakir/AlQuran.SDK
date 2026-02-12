@@ -1,9 +1,9 @@
-# AlQuran
+# AlQuran.SDK
 
 A comprehensive, high-performance .NET library providing complete read-only access to the Holy Quran.
 
-[![NuGet](https://img.shields.io/nuget/v/AlQuran?style=flat-square)](https://www.nuget.org/packages/AlQuran)
-[![NuGet Downloads](https://img.shields.io/nuget/dt/AlQuran?style=flat-square)](https://www.nuget.org/packages/AlQuran)
+[![NuGet](https://img.shields.io/nuget/v/AlQuran.SDK?style=flat-square)](https://www.nuget.org/packages/AlQuran.SDK)
+[![NuGet Downloads](https://img.shields.io/nuget/dt/AlQuran.SDK?style=flat-square)](https://www.nuget.org/packages/AlQuran.SDK)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE.txt)
 
 ---
@@ -27,20 +27,20 @@ A comprehensive, high-performance .NET library providing complete read-only acce
 ## Installation
 
 ```
-dotnet add package AlQuran
+dotnet add package AlQuran.SDK
 ```
 
 Or via the NuGet Package Manager:
 
 ```
-Install-Package AlQuran
+Install-Package AlQuran.SDK
 ```
 
 ## Quick Start
 
 ```csharp
-using AlQuran;
-using AlQuran.Enums;
+using AlQuran.SDK;
+using AlQuran.SDK.Enums;
 
 // Get Bismillah
 string bismillah = Quran.GetBismillah();
@@ -150,7 +150,7 @@ bool isValid2 = Quran.IsValidSurah("Al-Fatiha");  // true
 ## Arabic Text Utilities
 
 ```csharp
-using AlQuran.Extensions;
+using AlQuran.SDK.Extensions;
 
 var text = "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ";
 
@@ -178,8 +178,8 @@ bool isTashkeel = ArabicTextExtensions.IsTashkeelChar('\u064E'); // Fatha => tru
 ## Project Structure
 
 ```
-src/AlQuran/           — Main library
-tests/AlQuran.Tests/   — Unit tests (160+ tests)
+src/AlQuran.SDK/           — Main library
+tests/AlQuran.SDK.Tests/   — Unit tests (160+ tests)
 tools/QuranDataFetcher/ — Data generation tool
 docs/                  — Documentation
 ```

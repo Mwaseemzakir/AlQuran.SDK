@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/AlQuran.SDK/AlQuran.SDK.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/AlQuran.SDK.Tests/AlQuran.SDK.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tools/">
+    <Project Path="tools/QuranDataFetcher/QuranDataFetcher.csproj" />
+  </Folder>
+</Solution>
