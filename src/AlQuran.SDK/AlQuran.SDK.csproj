@@ -18,6 +18,7 @@
     <PackageTags>quran;holy-quran;islam;arabic;surah;ayah;juz;para;islamic;quran-api;quran-data;quran-library</PackageTags>
     <PackageId>AlQuran.SDK</PackageId>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>icon.png</PackageIcon>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
@@ -27,6 +28,7 @@
       <PackagePath>\</PackagePath>
     </None>
     <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+    <None Include="..\..\icon.png" Pack="true" PackagePath="\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -8,9 +8,9 @@ namespace AlQuran.SDK;
 
 /// <summary>
 /// The main entry point for accessing the Holy Quran data.
-/// Provides static methods for retrieving Surahs, Ayahs, Juz, Sajda positions, and performing searches.
+/// Provides static methods for retrieving Surahs, Ayahs, Juz, Sajda positions, translations, and performing searches.
 /// </summary>
-public static class Quran
+public static partial class Quran
 {
     #region Lookup Maps
 
