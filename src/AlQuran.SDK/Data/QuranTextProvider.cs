@@ -1,8 +1,7 @@
-using AlQuran.SDK.Enums;
-using AlQuran.SDK.Models;
-using System.IO.Compression;
 using System.Reflection;
 using System.Text.Json;
+using AlQuran.SDK.Enums;
+using AlQuran.SDK.Models;
 
 namespace AlQuran.SDK.Data;
 
@@ -12,10 +11,10 @@ namespace AlQuran.SDK.Data;
 internal static class QuranTextProvider
 {
     private static readonly Lazy<Dictionary<string, List<Ayah>>> UthmaniAyahs = new(
-        () => LoadAyahs("AlQuran.SDK.Data.Resources.quran_uthmani.json.gz"), isThreadSafe: true);
+        () => LoadAyahs("AlQuran.SDK.Data.Resources.quran_uthmani.json"), isThreadSafe: true);
 
     private static readonly Lazy<Dictionary<string, List<Ayah>>> SimpleAyahs = new(
-        () => LoadAyahs("AlQuran.SDK.Data.Resources.quran_simple.json.gz"), isThreadSafe: true);
+        () => LoadAyahs("AlQuran.SDK.Data.Resources.quran_simple.json"), isThreadSafe: true);
 
     /// <summary>
     /// Gets all Ayahs for the specified script type, grouped by "surah:ayah" key.
@@ -33,7 +32,7 @@ internal static class QuranTextProvider
         var store = GetAyahStore(scriptType);
         var key = surahNumber.ToString();
 
-        if(store.TryGetValue(key, out var ayahs))
+        if (store.TryGetValue(key, out var ayahs))
             return ayahs;
 
         return new List<Ayah>();
@@ -55,10 +54,10 @@ internal static class QuranTextProvider
     {
         var store = GetAyahStore(scriptType);
         var all = new List<Ayah>();
-        for(int i = 1; i <= SurahMetadata.TotalSurahs; i++)
+        for (int i = 1; i <= SurahMetadata.TotalSurahs; i++)
         {
             var key = i.ToString();
-            if(store.TryGetValue(key, out var ayahs))
+            if (store.TryGetValue(key, out var ayahs))
                 all.AddRange(ayahs);
         }
         return all;
@@ -81,11 +80,11 @@ internal static class QuranTextProvider
         {
             var assembly = Assembly.GetExecutingAssembly();
             using var stream = assembly.GetManifestResourceStream(resourceName);
-            if(stream == null)
+
+            if (stream == null)
                 return result;
 
-            using var gzipStream = new GZipStream(stream, System.IO.Compression.CompressionMode.Decompress);
-            using var reader = new StreamReader(gzipStream);
+            using var reader = new StreamReader(stream);
             var json = reader.ReadToEnd();
 
             var options = new JsonSerializerOptions
@@ -94,13 +93,13 @@ internal static class QuranTextProvider
             };
 
             var entries = JsonSerializer.Deserialize<List<AyahEntry>>(json, options);
-            if(entries == null)
+            if (entries == null)
                 return result;
 
-            foreach(var entry in entries)
+            foreach (var entry in entries)
             {
                 var key = entry.Surah.ToString();
-                if(!result.ContainsKey(key))
+                if (!result.ContainsKey(key))
                     result[key] = new List<Ayah>();
 
                 var ayah = new Ayah(
@@ -115,13 +114,13 @@ internal static class QuranTextProvider
             }
 
             // Mark sajda ayahs
-            foreach(var sajda in SajdaMetadata.AllSajdas)
+            foreach (var sajda in SajdaMetadata.AllSajdas)
             {
                 var sKey = sajda.SurahNumber.ToString();
-                if(result.TryGetValue(sKey, out var surahAyahs))
+                if (result.TryGetValue(sKey, out var surahAyahs))
                 {
                     var sajdaAyah = surahAyahs.Find(a => a.AyahNumber == sajda.AyahNumber);
-                    if(sajdaAyah != null)
+                    if (sajdaAyah != null)
                         sajdaAyah.HasSajda = true;
                 }
             }

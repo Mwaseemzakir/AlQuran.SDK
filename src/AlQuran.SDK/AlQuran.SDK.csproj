@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Data\Resources\*.json.gz" />
+    <EmbeddedResource Include="Data\Resources\*.json" />
   </ItemGroup>
 
   <ItemGroup>
