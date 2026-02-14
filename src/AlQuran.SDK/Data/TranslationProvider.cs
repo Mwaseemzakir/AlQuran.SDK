@@ -1,8 +1,9 @@
-using System.Collections.Concurrent;
-using System.Reflection;
-using System.Text.Json;
 using AlQuran.SDK.Enums;
 using AlQuran.SDK.Models;
+using System.Collections.Concurrent;
+using System.IO.Compression;
+using System.Reflection;
+using System.Text.Json;
 
 namespace AlQuran.SDK.Data;
 
@@ -40,10 +41,10 @@ internal static class TranslationProvider
     {
         var store = GetStore(edition);
         var all = new List<TranslatedAyah>();
-        for (int i = 1; i <= SurahMetadata.TotalSurahs; i++)
+        for(int i = 1; i <= SurahMetadata.TotalSurahs; i++)
         {
             var key = i.ToString();
-            if (store.TryGetValue(key, out var ayahs))
+            if(store.TryGetValue(key, out var ayahs))
                 all.AddRange(ayahs);
         }
         return all;
@@ -72,15 +73,19 @@ internal static class TranslationProvider
         try
         {
             var info = TranslationCatalog.GetInfo(edition);
-            if (info == null) return result;
+            if(info == null)
+                return result;
 
             var resourceName = $"AlQuran.SDK.Data.Resources.{info.ResourceName}.json";
             var assembly = Assembly.GetExecutingAssembly();
-            using var stream = assembly.GetManifestResourceStream(resourceName);
+            var gzResourceName = $"AlQuran.SDK.Data.Resources.{info.ResourceName}.json.gz";
+            using var stream = assembly.GetManifestResourceStream(gzResourceName);
 
-            if (stream == null) return result;
+            if(stream == null)
+                return result;
 
-            using var reader = new StreamReader(stream);
+            using var gzipStream = new GZipStream(stream, System.IO.Compression.CompressionMode.Decompress);
+            using var reader = new StreamReader(gzipStream);
             var json = reader.ReadToEnd();
 
             var options = new JsonSerializerOptions
@@ -89,12 +94,13 @@ internal static class TranslationProvider
             };
 
             var entries = JsonSerializer.Deserialize<List<TranslationEntry>>(json, options);
-            if (entries == null) return result;
+            if(entries == null)
+                return result;
 
-            foreach (var entry in entries)
+            foreach(var entry in entries)
             {
                 var key = entry.Surah.ToString();
-                if (!result.ContainsKey(key))
+                if(!result.ContainsKey(key))
                     result[key] = new List<TranslatedAyah>();
 
                 result[key].Add(new TranslatedAyah(
